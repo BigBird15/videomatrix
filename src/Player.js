@@ -2,6 +2,8 @@ import React from "react";
 import videojs from "video.js";
 import "./App/App.css";
 
+videojs.log.level('off');
+
 const BASIC_PLAYER_OPTIONS = {
     autoplay: true,
     controls: true,
