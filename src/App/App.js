@@ -2,11 +2,11 @@ import React, {useEffect} from "react";
 import Player from "../Player";
 import "./App.css";
 
-const PLAYLIST_URL = "http://localhost:3000/iptvlist.ru-movies.m3u";
+const PATH_TO_RESOURCES = "http://localhost:3000/iptvlist.ru-movies.m3u";
 
 const fetchSources = async () => {
-    const sourcesData = await fetch(PLAYLIST_URL);
-    return await sourcesData.text();
+    const sourcesData = await fetch(PATH_TO_RESOURCES);
+    return await sourcesData.text().then(text => text.split("\n"));
 }
 
 const App = () => {
@@ -14,9 +14,7 @@ const App = () => {
     const [sources, setSources] = React.useState(null);
 
     useEffect(() => {
-        fetchSources().then(sourcesText => (
-            setSources(sourcesText.split("\n"))
-        ))
+        fetchSources().then(sources => setSources(sources))
     }, []);
 
     const handlePlayerReady = (player) => {
