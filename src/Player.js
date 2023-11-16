@@ -3,10 +3,11 @@ import videojs from "video.js";
 import "./App/App.css";
 
 const BASIC_PLAYER_OPTIONS = {
-    autoplay: false,
+    autoplay: true,
     controls: true,
     muted: true,
-    aspectRatio: "1:1"
+    aspectRatio: "1:1",
+    errorDisplay: false
 };
 
 const getOptions = (src) => (
@@ -33,16 +34,8 @@ export const Player = (props) => {
             videoRef.current.appendChild(videoElement);
 
             const player = playerRef.current = videojs(videoElement, options, () => {
-                // videojs.log('player is ready');
                 onReady && onReady(player);
             });
-
-        } else {
-            const player = playerRef.current;
-            const {autoplay, sources} = options;
-
-            player.autoplay(autoplay);
-            player.src(sources);
         }
     }, [source, videoRef]);
 

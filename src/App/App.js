@@ -11,6 +11,16 @@ const App = () => {
 
     const handlePlayerReady = (player) => {
         playerRef.current = player;
+
+        player.on("error", function ()
+        {
+            this.addClass("vjs-custom-waiting");
+            setTimeout(() => player.initChildren(), 5000);
+        });
+        player.on("playing", function ()
+        {
+            this.removeClass("vjs-custom-waiting");
+        });
     };
 
     let fetchSources = async () => {
