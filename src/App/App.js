@@ -24,7 +24,7 @@ const App = () => {
 
         player.on("error", function () {
             this.addClass("vjs-custom-waiting");
-            setTimeout(() => player.initChildren(), 10000);
+            setTimeout(() => this.load(), 10_000);
         });
 
         player.on("playing", function () {
