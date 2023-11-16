@@ -1,24 +1,20 @@
 import React, {useEffect} from "react";
 import Player from "../Player";
 import "./App.css";
-import Loader from "../Loader";
 import {OKKO_TV_URL, PLAYLIST_URL} from "../resoures";
 
 const App = () => {
     const playerRef = React.useRef(null);
     const [sources, setSources] = React.useState(null);
-    const [isLoading, setIsLoading] = React.useState(true);
 
     const handlePlayerReady = (player) => {
         playerRef.current = player;
 
-        player.on("error", function ()
-        {
+        player.on("error", function () {
             this.addClass("vjs-custom-waiting");
             setTimeout(() => player.initChildren(), 5000);
         });
-        player.on("playing", function ()
-        {
+        player.on("playing", function () {
             this.removeClass("vjs-custom-waiting");
         });
     };
@@ -34,24 +30,18 @@ const App = () => {
     }
 
     useEffect(() => {
-        fetchSources().then(() => setIsLoading(false));
+        fetchSources();
     }, []);
 
     return (
-        <div>
-            {isLoading
-                ? <Loader/>
-                : (
-                    <div className={"wrapper"}>
-                        {sources?.map(source => (
-                            <Player
-                                source={source}
-                                key={source}
-                                onReady={handlePlayerReady}
-                            />
-                        ))}
-                    </div>
-                )}
+        <div className={"wrapper"}>
+            {sources?.map(source => (
+                <Player
+                    source={source}
+                    key={source}
+                    onReady={handlePlayerReady}
+                />
+            ))}
         </div>
     );
 }
