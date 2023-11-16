@@ -2,7 +2,9 @@ import React from "react";
 import videojs from "video.js";
 import "./App/App.css";
 
-videojs.log.level('off');
+videojs.log.level("off");
+
+const SOURCE_TYPE = "application/x-mpegURL";
 
 const BASIC_PLAYER_OPTIONS = {
     autoplay: true,
@@ -17,7 +19,7 @@ const getOptions = (src) => (
         ...BASIC_PLAYER_OPTIONS,
         sources: [{
             src,
-            type: 'application/x-mpegURL'
+            type: SOURCE_TYPE
         }]
     }
 );
@@ -39,7 +41,7 @@ export const Player = (props) => {
                 onReady && onReady(player);
             });
         }
-    }, [source, videoRef]);
+    }, []);
 
     React.useEffect(() => {
         const player = playerRef.current;

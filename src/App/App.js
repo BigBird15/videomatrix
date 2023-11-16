@@ -1,11 +1,23 @@
 import React, {useEffect} from "react";
 import Player from "../Player";
 import "./App.css";
-import {OKKO_TV_URL, PLAYLIST_URL} from "../resoures";
+
+const PLAYLIST_URL = "http://localhost:3000/iptvlist.ru-movies.m3u";
+
+const fetchSources = async () => {
+    const sourcesData = await fetch(PLAYLIST_URL);
+    return await sourcesData.text();
+}
 
 const App = () => {
     const playerRef = React.useRef(null);
     const [sources, setSources] = React.useState(null);
+
+    useEffect(() => {
+        fetchSources().then(sourcesText => (
+            setSources(sourcesText.split("\n"))
+        ))
+    }, []);
 
     const handlePlayerReady = (player) => {
         playerRef.current = player;
@@ -19,20 +31,6 @@ const App = () => {
             this.removeClass("vjs-custom-waiting");
         });
     };
-
-    let fetchSources = async () => {
-        let sourcesData = await fetch(PLAYLIST_URL);
-        let sourcesText = await sourcesData.text();
-
-        setSources([
-            OKKO_TV_URL,
-            ...sourcesText.split("\n")
-        ]);
-    }
-
-    useEffect(() => {
-        fetchSources();
-    }, []);
 
     return (
         <div className={"wrapper"}>
