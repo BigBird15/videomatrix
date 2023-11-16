@@ -6,7 +6,7 @@ const BASIC_PLAYER_OPTIONS = {
     autoplay: true,
     controls: true,
     muted: true,
-    aspectRatio: "1:1",
+    aspectRatio: "16:9",
     errorDisplay: false
 };
 
