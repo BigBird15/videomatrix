@@ -5,8 +5,9 @@ import "./App.css";
 const PATH_TO_RESOURCES = "http://localhost:3000/iptvlist.ru-movies.m3u";
 
 const fetchSources = async () => {
-    const sourcesData = await fetch(PATH_TO_RESOURCES);
-    return await sourcesData.text().then(text => text.split("\n"));
+    return fetch(PATH_TO_RESOURCES)
+        .then(data => data.text())
+        .then(text => text.split("\n"));
 }
 
 const App = () => {
