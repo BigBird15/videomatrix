@@ -1,6 +1,8 @@
 import React, {useEffect} from "react";
 import Player from "../Player";
 import "./App.css";
+import PlayersSelectMenu from "../PlayersSelectMenu";
+import {useSelector} from "react-redux";
 
 const PATH_TO_RESOURCES = "http://localhost:3000/iptvlist.ru-movies.m3u";
 
@@ -12,7 +14,9 @@ const fetchSources = async () => {
 
 const App = () => {
     const playerRef = React.useRef(null);
-    const [sources, setSources] = React.useState(null);
+    const [sources, setSources] = React.useState([]);
+
+    const visiblePlayers = useSelector(state => state.visiblePlayers) || [];
 
     useEffect(() => {
         fetchSources().then(sources => setSources(sources))
@@ -32,14 +36,17 @@ const App = () => {
     };
 
     return (
-        <div className={"wrapper"}>
-            {sources?.map(source => (
-                <Player
-                    source={source}
-                    key={source}
-                    onReady={handlePlayerReady}
-                />
-            ))}
+        <div>
+            <PlayersSelectMenu sources={sources}/>
+            <div className={"players-wrapper"}>
+                {visiblePlayers.map(source => (
+                    <Player
+                        source={source}
+                        key={source}
+                        onReady={handlePlayerReady}
+                    />
+                ))}
+            </div>
         </div>
     );
 }
