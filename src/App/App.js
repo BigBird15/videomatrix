@@ -36,9 +36,9 @@ const App = () => {
     };
 
     return (
-        <div>
+        <div className={"container"}>
             <PlayersSelectMenu sources={sources}/>
-            <div className={"players-wrapper"}>
+            <div className={"players-grid"}>
                 {visiblePlayers.map(source => (
                     <Player
                         source={source}

@@ -1,6 +1,10 @@
-.players-wrapper {
-  display: flex;
+.container {
   background-color: rgb(128, 128, 128);
+  height: 100vh;
+}
+
+.players-grid {
+  display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
@@ -9,7 +13,21 @@
 }
 
 .player, .video-js {
-   width: 360px
+   width: 360px;
+}
+
+.players-menu {
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: black;
+  color: white;
+}
+
+.option {
+  display: block;
+  accent-color: red
 }
 
 /* below is copied animation from default css file (to keep showing player loader on error ) */
