@@ -3,7 +3,7 @@ import Player from "../Player";
 import "./App.css";
 import PlayersSelectMenu from "../PlayersSelectMenu";
 import {useSelector} from "react-redux";
-import {getWidth} from "../helper";
+import {getSafeString, getGridItemWidth} from "../helper";
 
 const PATH_TO_RESOURCES = "http://localhost:3000/iptvlist.ru-movies.m3u";
 
@@ -16,17 +16,19 @@ const fetchSources = async () => {
 const App = () => {
     const playerRef = React.useRef(null);
     const [sources, setSources] = React.useState([]);
-    const widthGetter = React.useRef();
-    const width = React.useState(0);
 
     const visiblePlayers = useSelector(state => state.visiblePlayers) || [];
+    const visiblePlayersCount = visiblePlayers.length;
+
+    const playerWidthGetter = React.useRef(() => {});
+    const playerWidth = React.useState(0);
 
     useEffect(() => {
         fetchSources().then(sources => setSources(sources));
-        widthGetter.current = getWidth();
+        playerWidthGetter.current = getGridItemWidth();
     }, []);
 
-    const handlePlayerReady = (player) => {
+    const handlePlayerReady = player => {
         playerRef.current = player;
 
         player.on("error", function () {
@@ -39,7 +41,7 @@ const App = () => {
         });
     };
 
-    width.current = widthGetter.current?.(visiblePlayers.length);
+    playerWidth.current = playerWidthGetter.current(visiblePlayersCount);
 
     return (
         <div className={"container"}>
@@ -48,9 +50,9 @@ const App = () => {
                 {visiblePlayers.map(source => (
                     <Player
                         source={source}
-                        key={source}
+                        key={getSafeString(source)}
                         onReady={handlePlayerReady}
-                        width={width.current}
+                        width={playerWidth.current}
                     />
                 ))}
             </div>

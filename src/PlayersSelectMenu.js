@@ -2,18 +2,17 @@ import {useDispatch} from "react-redux";
 import {addSource, removeSource} from "./Store/VisiblePlayerSlice";
 import "./App/App.css";
 import videojs from "video.js";
-import {getPlayerId} from "./helper";
+import {getSafeString} from "./helper";
 
-const PlayersSelectMenu = (props) => {
+const PlayersSelectMenu = props => {
     const {sources} = props;
-
     const dispatch = useDispatch();
 
     const handleChange = source => event => {
         if (event.target.checked) {
             dispatch(addSource(source));
         } else {
-            const playerId = getPlayerId(source);
+            const playerId = getSafeString(source);
             videojs(playerId).dispose();
             dispatch(removeSource(source));
         }
@@ -23,7 +22,7 @@ const PlayersSelectMenu = (props) => {
         <form>
             <fieldset className={"players-menu"}>
                 {sources.map((source, index) => (
-                    <div key={source}>
+                    <div key={getSafeString(source)}>
                         <input
                             type={"checkbox"}
                             id={source}

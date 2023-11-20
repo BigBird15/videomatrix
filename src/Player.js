@@ -1,7 +1,7 @@
 import React from "react";
 import videojs from "video.js";
 import "./App/App.css";
-import {getPlayerId} from "./helper";
+import {getSafeString} from "./helper";
 
 videojs.log.level("off");
 
@@ -15,18 +15,18 @@ const BASIC_PLAYER_OPTIONS = {
     errorDisplay: false
 };
 
-const getOptions = (src) => (
+const getOptions = src => (
     {
         ...BASIC_PLAYER_OPTIONS,
         sources: [{
             src,
             type: SOURCE_TYPE
         }],
-        id: getPlayerId(src)
+        id: getSafeString(src)
     }
 );
 
-export const Player = (props) => {
+export const Player = props => {
     const {source, onReady, width} = props;
 
     const videoRef = React.useRef(null);
