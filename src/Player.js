@@ -1,6 +1,7 @@
 import React from "react";
 import videojs from "video.js";
 import "./App/App.css";
+import {getPlayerId} from "./helper";
 
 videojs.log.level("off");
 
@@ -20,7 +21,8 @@ const getOptions = (src) => (
         sources: [{
             src,
             type: SOURCE_TYPE
-        }]
+        }],
+        id: getPlayerId(src)
     }
 );
 

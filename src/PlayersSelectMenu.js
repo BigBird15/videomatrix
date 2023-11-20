@@ -1,6 +1,8 @@
 import {useDispatch} from "react-redux";
 import {addSource, removeSource} from "./Store/VisiblePlayerSlice";
 import "./App/App.css";
+import videojs from "video.js";
+import {getPlayerId} from "./helper";
 
 const PlayersSelectMenu = (props) => {
     const {sources} = props;
@@ -11,7 +13,9 @@ const PlayersSelectMenu = (props) => {
         if (event.target.checked) {
             dispatch(addSource(source));
         } else {
-            dispatch(removeSource(source))
+            const playerId = getPlayerId(source);
+            videojs(playerId).dispose();
+            dispatch(removeSource(source));
         }
     };
 

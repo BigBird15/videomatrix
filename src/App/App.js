@@ -3,7 +3,7 @@ import Player from "../Player";
 import "./App.css";
 import PlayersSelectMenu from "../PlayersSelectMenu";
 import {useSelector} from "react-redux";
-import {getWidth} from "../calc";
+import {getWidth} from "../helper";
 
 const PATH_TO_RESOURCES = "http://localhost:3000/iptvlist.ru-movies.m3u";
 
