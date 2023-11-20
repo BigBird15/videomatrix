@@ -25,7 +25,7 @@ const getOptions = (src) => (
 );
 
 export const Player = (props) => {
-    const {source, onReady} = props;
+    const {source, onReady, width} = props;
 
     const videoRef = React.useRef(null);
     const playerRef = React.useRef(null);
@@ -35,6 +35,7 @@ export const Player = (props) => {
     React.useEffect(() => {
         if (!playerRef.current) {
             const videoElement = document.createElement("video-js");
+            videoElement.style.width = width;
             videoRef.current.appendChild(videoElement);
 
             const player = playerRef.current = videojs(videoElement, options, () => {
@@ -59,6 +60,7 @@ export const Player = (props) => {
             data-vjs-player
             className={"player"}
             ref={videoRef}
+            style={{width}}
         />
     );
 }

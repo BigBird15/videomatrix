@@ -3,6 +3,7 @@ import Player from "../Player";
 import "./App.css";
 import PlayersSelectMenu from "../PlayersSelectMenu";
 import {useSelector} from "react-redux";
+import {getWidth} from "../calc";
 
 const PATH_TO_RESOURCES = "http://localhost:3000/iptvlist.ru-movies.m3u";
 
@@ -15,11 +16,14 @@ const fetchSources = async () => {
 const App = () => {
     const playerRef = React.useRef(null);
     const [sources, setSources] = React.useState([]);
+    const widthGetter = React.useRef();
+    const width = React.useState(0);
 
     const visiblePlayers = useSelector(state => state.visiblePlayers) || [];
 
     useEffect(() => {
-        fetchSources().then(sources => setSources(sources))
+        fetchSources().then(sources => setSources(sources));
+        widthGetter.current = getWidth();
     }, []);
 
     const handlePlayerReady = (player) => {
@@ -35,6 +39,8 @@ const App = () => {
         });
     };
 
+    width.current = widthGetter.current?.(visiblePlayers.length);
+
     return (
         <div className={"container"}>
             <PlayersSelectMenu sources={sources}/>
@@ -44,6 +50,7 @@ const App = () => {
                         source={source}
                         key={source}
                         onReady={handlePlayerReady}
+                        width={width.current}
                     />
                 ))}
             </div>
