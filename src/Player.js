@@ -1,7 +1,6 @@
 import React from "react";
 import videojs from "video.js";
 import "./App/App.css";
-import {getSafeString} from "./helper";
 
 videojs.log.level("off");
 
@@ -21,8 +20,7 @@ const getOptions = src => (
         sources: [{
             src,
             type: SOURCE_TYPE
-        }],
-        id: getSafeString(src)
+        }]
     }
 );
 
@@ -37,7 +35,6 @@ export const Player = props => {
     React.useEffect(() => {
         if (!playerRef.current) {
             const videoElement = document.createElement("video-js");
-            videoElement.style.width = width;
             videoRef.current.appendChild(videoElement);
 
             const player = playerRef.current = videojs(videoElement, options, () => {

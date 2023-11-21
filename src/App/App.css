@@ -12,10 +12,6 @@
   padding: 10px 0;
 }
 
-.player, .video-js {
-   width: 360px;
-}
-
 .players-menu {
   display: flex;
   text-align: center;

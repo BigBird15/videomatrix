@@ -3,7 +3,7 @@ import Player from "../Player";
 import "./App.css";
 import PlayersSelectMenu from "../PlayersSelectMenu";
 import {useSelector} from "react-redux";
-import {getSafeString, getGridItemWidth} from "../helper";
+import {getGridItemWidth} from "../helper";
 
 const PATH_TO_RESOURCES = "http://localhost:3000/iptvlist.ru-movies.m3u";
 
@@ -21,11 +21,11 @@ const App = () => {
     const visiblePlayersCount = visiblePlayers.length;
 
     const playerWidthGetter = React.useRef(() => {});
-    const playerWidth = React.useState(0);
+    const playerWidth = React.useRef(0);
 
     useEffect(() => {
-        fetchSources().then(sources => setSources(sources));
         playerWidthGetter.current = getGridItemWidth();
+        fetchSources().then(sources => setSources(sources));
     }, []);
 
     const handlePlayerReady = player => {
@@ -50,7 +50,7 @@ const App = () => {
                 {visiblePlayers.map(source => (
                     <Player
                         source={source}
-                        key={getSafeString(source)}
+                        key={source}
                         onReady={handlePlayerReady}
                         width={playerWidth.current}
                     />

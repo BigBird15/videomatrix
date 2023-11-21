@@ -1,8 +1,6 @@
 import {useDispatch} from "react-redux";
 import {addSource, removeSource} from "./Store/VisiblePlayerSlice";
 import "./App/App.css";
-import videojs from "video.js";
-import {getSafeString} from "./helper";
 
 const PlayersSelectMenu = props => {
     const {sources} = props;
@@ -19,7 +17,7 @@ const PlayersSelectMenu = props => {
         <form>
             <fieldset className={"players-menu"}>
                 {sources.map((source, index) => (
-                    <div key={getSafeString(source)}>
+                    <div key={source}>
                         <input
                             type={"checkbox"}
                             id={source}

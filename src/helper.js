@@ -4,8 +4,6 @@ const GRID_GAP = 10;
 const viewportHeight = window.innerHeight;
 const viewportWidth = window.innerWidth;
 
-// TODO could use spare space more efficiently
-// TODO get rid of scroll
 export const getGridItemWidth = () => {
     let itemWidth;
 
@@ -24,14 +22,12 @@ export const getGridItemWidth = () => {
 
         const resizingCoefficient = viewportHeight / (viewportHeight + heightDifference);
 
-        const itemsNeedToGrow = heightOccupiedByItems > viewportHeight;
-        const itemsNeedToShrink = !itemsNeedToGrow && Math.abs(heightDifference) > itemHeight + GRID_GAP;
+        const shouldItemsGrow = heightOccupiedByItems > viewportHeight;
+        const shouldItemsShrink = !shouldItemsGrow && Math.abs(heightDifference) > itemHeight + GRID_GAP;
 
-        if (itemsNeedToGrow || itemsNeedToShrink) {
+        if (shouldItemsGrow || shouldItemsShrink) {
             itemWidth = ASPECT_RATIO * (resizingCoefficient * heightOccupiedByItems / rowsCount) + GRID_GAP;
         }
         return itemWidth;
     }
-}
-
-export const getSafeString = str => str.replace(/\W/gi, "");
+};
