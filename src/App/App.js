@@ -33,7 +33,9 @@ const App = () => {
 
         player.on("error", function () {
             this.addClass("vjs-custom-waiting");
-            setTimeout(() => !this.isDisposed() && this.load(), 10_000);
+            setTimeout(() => {
+                !this.isDisposed() && this.load()
+            }, 10_000);
         });
 
         player.on("playing", function () {
@@ -50,9 +52,9 @@ const App = () => {
                 {visiblePlayers.map(source => (
                     <Player
                         source={source}
-                        key={source}
                         onReady={handlePlayerReady}
                         width={playerWidth.current}
+                        key={source}
                     />
                 ))}
             </div>

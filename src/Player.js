@@ -37,9 +37,11 @@ export const Player = props => {
             const videoElement = document.createElement("video-js");
             videoRef.current.appendChild(videoElement);
 
-            const player = playerRef.current = videojs(videoElement, options, () => {
-                onReady && onReady(player);
-            });
+            const player = playerRef.current = videojs(
+                videoElement,
+                options,
+                () => onReady && onReady(player)
+            );
         }
     }, []);
 
