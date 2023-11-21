@@ -9,14 +9,10 @@ const PlayersSelectMenu = props => {
     const dispatch = useDispatch();
 
     const handleChange = source => event => {
-        if (event.target.checked) {
-            dispatch(addSource(source));
-        } else {
-            // TODO errors `cannot read properties of null (reading "load")` happen sometimes
-            const playerId = getSafeString(source);
-            videojs(playerId).dispose();
-            dispatch(removeSource(source));
-        }
+        const action = event.target.checked
+            ? addSource(source)
+            : removeSource(source);
+        dispatch(action);
     };
 
     return (
