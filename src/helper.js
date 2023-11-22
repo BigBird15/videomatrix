@@ -26,7 +26,7 @@ export const getGridItemWidth = () => {
         const shouldItemsShrink = !shouldItemsGrow && Math.abs(heightDifference) > itemHeight + GRID_GAP;
 
         if (shouldItemsGrow || shouldItemsShrink) {
-            itemWidth = ASPECT_RATIO * (resizingCoefficient * heightOccupiedByItems / rowsCount) + GRID_GAP;
+            itemWidth = ASPECT_RATIO * resizingCoefficient * heightOccupiedByItems / rowsCount + GRID_GAP;
         }
         return itemWidth;
     }

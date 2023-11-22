@@ -1,3 +1,4 @@
+import React from "react";
 import {useDispatch} from "react-redux";
 import {addSource, removeSource} from "./Store/VisiblePlayerSlice";
 import "./App/App.css";
@@ -37,4 +38,4 @@ const PlayersSelectMenu = props => {
     )
 }
 
-export default PlayersSelectMenu;
+export default React.memo(PlayersSelectMenu);
