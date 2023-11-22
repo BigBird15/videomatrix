@@ -9,7 +9,7 @@ export const getGridItemWidth = () => {
 
     return count => {
         if (count === 1) {
-            itemWidth = viewportWidth - 4 * GRID_GAP
+            itemWidth = ASPECT_RATIO * viewportHeight
             return itemWidth;
         }
 
